@@ -1,7 +1,9 @@
 <script setup>
 import axios from 'axios'
+import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 
+const router = useRouter()
 const searchQuery = ref('')
 const queryTimeout = ref(null)
 const mapboxSearchResults = ref(null)
@@ -16,7 +18,6 @@ const getSearchResults = () => {
           `https://api.mapbox.com/search/geocode/v6/forward?q=${searchQuery.value}&types=place&access_token=${import.meta.env.VITE_MAPBOX_API_KEY}`,
         )
         mapboxSearchResults.value = result.data.features
-        console.log(mapboxSearchResults.value)
       } catch {
         searchError.value = true
       }
@@ -24,6 +25,23 @@ const getSearchResults = () => {
     }
     mapboxSearchResults.value = null
   }, 300)
+}
+
+const previewCity = (searchResult) => {
+  console.log(searchResult)
+  router.push({
+    name: 'cityView',
+    params: {
+      region: searchResult.properties.context.region.name,
+      country: searchResult.properties.context.country.name,
+      place: searchResult.properties.context.place.name,
+    },
+    query: {
+      lat: searchResult.geometry.coordinates[1],
+      lng: searchResult.geometry.coordinates[0],
+      preview: true,
+    },
+  })
 }
 </script>
 
@@ -45,6 +63,7 @@ const getSearchResults = () => {
         <template v-else>
           <li
             v-for="searchResult in mapboxSearchResults"
+            @click="previewCity(searchResult)"
             :key="searchResult.id"
             class="py-2 cursor-pointer"
           >
