@@ -5,16 +5,21 @@ import { ref } from 'vue'
 const searchQuery = ref('')
 const queryTimeout = ref(null)
 const mapboxSearchResults = ref(null)
+const searchError = ref(null)
 
 const getSearchResults = () => {
   clearTimeout(queryTimeout.value)
   queryTimeout.value = setTimeout(async () => {
     if (searchQuery.value !== '') {
-      const result = await axios.get(
-        `https://api.mapbox.com/search/geocode/v6/forward?q=${searchQuery.value}&types=place&access_token=${import.meta.env.VITE_MAPBOX_API_KEY}`,
-      )
-      mapboxSearchResults.value = result.data.features
-      console.log(mapboxSearchResults.value)
+      try {
+        const result = await axios.get(
+          `https://api.mapbox.com/search/geocode/v6/forward?q=${searchQuery.value}&types=place&access_token=${import.meta.env.VITE_MAPBOX_API_KEY}`,
+        )
+        mapboxSearchResults.value = result.data.features
+        console.log(mapboxSearchResults.value)
+      } catch {
+        searchError.value = true
+      }
       return
     }
     mapboxSearchResults.value = null
@@ -32,14 +37,20 @@ const getSearchResults = () => {
         placeholder="Search for a city"
         class="py-2 px-1 w-full bg-transparent border focus:outline-none focus:shadow-md"
       />
-      <ul class="w-full p-4">
-        <li
-          v-for="searchResult in mapboxSearchResults"
-          :key="searchResult.id"
-          class="py-2 cursor-pointer"
-        >
-          {{ searchResult.properties.full_address }}
-        </li>
+      <ul v-if="mapboxSearchResults" class="w-full p-4">
+        <p v-if="searchError">Sorry, an error occurred. Please try again</p>
+        <p v-if="!searchError && mapboxSearchResults.length === 0">
+          No results match your query. Use a different search term
+        </p>
+        <template v-else>
+          <li
+            v-for="searchResult in mapboxSearchResults"
+            :key="searchResult.id"
+            class="py-2 cursor-pointer"
+          >
+            {{ searchResult.properties.full_address }}
+          </li>
+        </template>
       </ul>
     </div>
   </main>
