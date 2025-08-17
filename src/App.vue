@@ -1,9 +1,11 @@
 <template>
   <div>
-    <h1 class="text-3xl font-bold text-test underline">Hello world!</h1>
+    <HomeView />
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import HomeView from './views/HomeView.vue'
+</script>
 
 <style lang="scss" scoped></style>
