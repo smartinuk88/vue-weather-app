@@ -1,5 +1,5 @@
 <script setup>
-import AsyncCityView from './AsyncCityView.vue'
+import AsyncCityView from '../components/AsyncCityView.vue'
 </script>
 
 <template>

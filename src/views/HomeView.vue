@@ -28,7 +28,6 @@ const getSearchResults = () => {
 }
 
 const previewCity = (searchResult) => {
-  console.log(searchResult)
   router.push({
     name: 'cityView',
     params: {
