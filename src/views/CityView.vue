@@ -1,5 +1,14 @@
-<script setup></script>
+<script setup>
+import AsyncCityView from './AsyncCityView.vue'
+</script>
 
 <template>
-  <div></div>
+  <div>
+    <Suspense>
+      <AsyncCityView />
+      <template #fallback>
+        <p>Loading...</p>
+      </template>
+    </Suspense>
+  </div>
 </template>
