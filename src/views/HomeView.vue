@@ -23,8 +23,8 @@ const getSearchResults = () => {
 </script>
 
 <template>
-  <main class="p-2 text-center">
-    <div class="pt-4">
+  <main class="p-2">
+    <div class="p-4">
       <input
         type="text"
         v-model="searchQuery"
@@ -32,6 +32,15 @@ const getSearchResults = () => {
         placeholder="Search for a city"
         class="py-2 px-1 w-full bg-transparent border focus:outline-none focus:shadow-md"
       />
+      <ul class="w-full p-4">
+        <li
+          v-for="searchResult in mapboxSearchResults"
+          :key="searchResult.id"
+          class="py-2 cursor-pointer"
+        >
+          {{ searchResult.properties.full_address }}
+        </li>
+      </ul>
     </div>
   </main>
 </template>
