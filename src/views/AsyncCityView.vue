@@ -19,5 +19,9 @@ console.log(weatherData)
 </script>
 
 <template>
-  <div></div>
+  <div class="flex flex-1 flex-col items-center">
+    <div v-if="route.query.preview" class="p-4 w-full text-center">
+      <p>You are currently previewing this city. Click the "+" to add to your cities.</p>
+    </div>
+  </div>
 </template>
