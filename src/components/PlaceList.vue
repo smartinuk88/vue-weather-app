@@ -24,6 +24,7 @@ const getPlaces = async () => {
   weatherData.forEach((value, i) => {
     savedPlaces.value[i].weather = value.data
   })
+  console.log(savedPlaces)
 }
 
 await getPlaces()
