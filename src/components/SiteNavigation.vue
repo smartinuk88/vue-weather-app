@@ -6,7 +6,7 @@ import { RouterLink, useRoute, useRouter } from 'vue-router'
 const router = useRouter()
 const route = useRoute()
 const savedPlaces = ref([])
-const addCity = () => {
+const addPlace = () => {
   if (localStorage.getItem('savedPlaces')) {
     savedPlaces.value = JSON.parse(localStorage.getItem('savedPlaces'))
   }
@@ -44,7 +44,7 @@ const addCity = () => {
         </RouterLink>
         <div class="flex flex-1 justify-end">
           <i
-            @click="addCity"
+            @click="addPlace"
             v-if="route.query.preview"
             class="fa-solid fa-plus cursor-pointer hover:text-gray-500 duration-300"
           ></i>

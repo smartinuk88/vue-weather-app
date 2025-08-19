@@ -1,7 +1,8 @@
 <script setup>
 import axios from 'axios'
 import { useRouter } from 'vue-router'
-import { ref } from 'vue'
+import { ref, Suspense } from 'vue'
+import PlaceList from '@/components/PlaceList.vue'
 
 const router = useRouter()
 const searchQuery = ref('')
@@ -27,9 +28,9 @@ const getSearchResults = () => {
   }, 300)
 }
 
-const previewCity = (searchResult) => {
+const previewPlace = (searchResult) => {
   router.push({
-    name: 'cityView',
+    name: 'placeView',
     params: {
       region: searchResult.properties.context.region.name,
       country: searchResult.properties.context.country.name,
@@ -62,7 +63,7 @@ const previewCity = (searchResult) => {
         <template v-else>
           <li
             v-for="searchResult in mapboxSearchResults"
-            @click="previewCity(searchResult)"
+            @click="previewPlace(searchResult)"
             :key="searchResult.id"
             class="py-2 cursor-pointer"
           >
@@ -70,6 +71,14 @@ const previewCity = (searchResult) => {
           </li>
         </template>
       </ul>
+      <div class="flex flex-col gap-4">
+        <Suspense>
+          <PlaceList />
+          <template #fallback>
+            <p>Loading...</p>
+          </template>
+        </Suspense>
+      </div>
     </div>
   </main>
 </template>
