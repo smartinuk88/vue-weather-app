@@ -1,7 +1,8 @@
 <script setup>
 import axios from 'axios'
 import { useRouter } from 'vue-router'
-import { ref } from 'vue'
+import { ref, Suspense } from 'vue'
+import PlaceList from '@/components/PlaceList.vue'
 
 const router = useRouter()
 const searchQuery = ref('')
@@ -70,6 +71,14 @@ const previewCity = (searchResult) => {
           </li>
         </template>
       </ul>
+      <div class="flex flex-col gap-4">
+        <Suspense>
+          <PlaceList />
+          <template #fallback>
+            <p>Loading...</p>
+          </template>
+        </Suspense>
+      </div>
     </div>
   </main>
 </template>
