@@ -1,5 +1,20 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-test: #777;
+  --font-display: 'Red Hat Display', 'sans-serif';
+
+  --color-pagePrimary: #45278b;
+  --color-pageSecondary: #2e335a;
+  --color-searchPrimary: #2e335a;
+  --color-searchSecondary: #1c1b33;
+  --color-textPrimary: #fff;
+  --color-textSecondary: rgba(235, 235, 245, 0.6);
+  --color-textTertiary: rgba(235, 235, 245, 0.3);
+  --color-textQuaternary: rgba(235, 235, 245, 0.18);
+  --color-weatherPrimary: #48319d;
+  --color-weatherSecondary: #1f1d47;
+  --color-weatherTertiary: #c427fb;
+  --color-weatherQuaternary: #e0d9ff;
+  --color-cardPrimary: #5936b4;
+  --color-cardSecondary: #362a84;
 }
