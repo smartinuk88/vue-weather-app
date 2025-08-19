@@ -52,5 +52,7 @@ const goToPlaceView = (place) => {
     <PlaceCard :place="place" @click="goToPlaceView(place)" />
   </div>
 
-  <p v-if="savedPlaces.length === 0">No places added. Use search bar above to get started</p>
+  <p v-if="savedPlaces.length === 0">
+    No locations added. Use search bar above to get started adding locations
+  </p>
 </template>

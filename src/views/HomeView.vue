@@ -52,7 +52,7 @@ const previewPlace = (searchResult) => {
         type="text"
         v-model="searchQuery"
         @input="getSearchResults"
-        placeholder="Search for a city"
+        placeholder="Search for a location"
         class="py-2 px-1 w-full bg-transparent border focus:outline-none focus:shadow-md"
       />
       <ul v-if="mapboxSearchResults" class="w-full p-4">
