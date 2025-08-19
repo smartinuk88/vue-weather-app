@@ -28,9 +28,9 @@ const getSearchResults = () => {
   }, 300)
 }
 
-const previewCity = (searchResult) => {
+const previewPlace = (searchResult) => {
   router.push({
-    name: 'cityView',
+    name: 'placeView',
     params: {
       region: searchResult.properties.context.region.name,
       country: searchResult.properties.context.country.name,
@@ -63,7 +63,7 @@ const previewCity = (searchResult) => {
         <template v-else>
           <li
             v-for="searchResult in mapboxSearchResults"
-            @click="previewCity(searchResult)"
+            @click="previewPlace(searchResult)"
             :key="searchResult.id"
             class="py-2 cursor-pointer"
           >

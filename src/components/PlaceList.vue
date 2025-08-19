@@ -2,7 +2,9 @@
 import axios from 'axios'
 import { ref } from 'vue'
 import PlaceCard from './PlaceCard.vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const savedPlaces = ref([])
 const getPlaces = async () => {
   if (localStorage.getItem('savedPlaces')) {
@@ -28,10 +30,27 @@ const getPlaces = async () => {
 }
 
 await getPlaces()
+
+const goToPlaceView = (place) => {
+  router.push({
+    name: 'placeView',
+    params: {
+      region: place.region,
+      country: place.country,
+      place: place.place,
+    },
+    query: {
+      lat: place.coordinates.lat,
+      lon: place.coordinates.lat,
+    },
+  })
+}
 </script>
 
 <template>
   <div v-for="place in savedPlaces" :key="place.id">
-    <PlaceCard :place="place" />
+    <PlaceCard :place="place" @click="goToPlaceView(place)" />
   </div>
+
+  <p v-if="savedPlaces.length === 0">No places added. Use search bar above to get started</p>
 </template>
