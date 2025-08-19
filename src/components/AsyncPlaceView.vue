@@ -67,6 +67,7 @@ console.log(weatherData)
     </div>
 
     <div
+      v-if="!route.query.preview"
       @click="removePlace"
       class="flex items-center gap-2 cursor-pointer p-4 hover:text-red-500 duration-300"
     >
