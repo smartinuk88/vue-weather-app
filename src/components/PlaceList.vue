@@ -26,7 +26,6 @@ const getPlaces = async () => {
   weatherData.forEach((value, i) => {
     savedPlaces.value[i].weather = value.data
   })
-  console.log(savedPlaces)
 }
 
 await getPlaces()
@@ -40,6 +39,7 @@ const goToPlaceView = (place) => {
       place: place.place,
     },
     query: {
+      id: place.id,
       lat: place.coordinates.lat,
       lon: place.coordinates.lat,
     },

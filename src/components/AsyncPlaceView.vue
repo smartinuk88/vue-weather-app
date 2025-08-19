@@ -1,7 +1,8 @@
 <script setup>
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import axios from 'axios'
 
+const router = useRouter()
 const route = useRoute()
 const getWeatherData = async () => {
   try {
@@ -24,6 +25,16 @@ const getWeatherData = async () => {
   } catch (err) {
     console.log(err)
   }
+}
+
+const removePlace = () => {
+  const places = JSON.parse(localStorage.getItem('savedPlaces'))
+  const updatedPlaces = places.filter((place) => place.id !== route.query.id)
+  localStorage.setItem('savedPlaces', JSON.stringify(updatedPlaces))
+
+  router.push({
+    name: 'home',
+  })
 }
 
 const weatherData = await getWeatherData()
@@ -53,6 +64,14 @@ console.log(weatherData)
           })
         }}
       </p>
+    </div>
+
+    <div
+      @click="removePlace"
+      class="flex items-center gap-2 cursor-pointer p-4 hover:text-red-500 duration-300"
+    >
+      <i class="fa-solid fa-trash"></i>
+      <p>Remove Location</p>
     </div>
   </div>
 </template>
