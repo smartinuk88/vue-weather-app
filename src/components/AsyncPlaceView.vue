@@ -2,6 +2,8 @@
 import { useRoute, useRouter } from 'vue-router'
 import axios from 'axios'
 import WeatherList from './WeatherList.vue'
+import HourlyWeatherCard from './HourlyWeatherCard.vue'
+import DailyWeatherCard from './DailyWeatherCard.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -75,28 +77,19 @@ console.log(weatherData)
 
     <!-- Weather Hourly & Weekly -->
 
-    <div class="max-w-screen-md w-full py-12">
-      <div class="mx-8">
-        <h2 class="mb-4">Hourly Weather</h2>
-        <div class="flex gap-2 overflow-x-scroll">
-          <div
-            v-for="hourData in weatherData.hourly"
-            :key="hourData.dt"
-            class="flex flex-col px-2 py-4 items-center justify-between border border-weatherCard-border rounded-t-full h-[146px] rounded-b-full bg-weatherCard shadow-xl"
-          >
-            <p class="whitespace-nowrap text-md">
-              {{ new Date(hourData.currentTime).toLocaleTimeString('en-us', { hour: 'numeric' }) }}
-            </p>
-            <img
-              class="w-[32px] h-auto"
-              :src="`https://openweathermap.org/img/wn/${hourData.weather[0].icon}@2x.png`"
-              alt="weather icon"
-            />
-            <p class="text-xl">{{ Math.round(hourData.temp) }}&deg;</p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <h2>Hourly Weather</h2>
+    <WeatherList>
+      <HourlyWeatherCard
+        v-for="hourData in weatherData.hourly"
+        :key="hourData.dt"
+        :data="hourData"
+      />
+    </WeatherList>
+
+    <h2>Daily Weather</h2>
+    <WeatherList>
+      <DailyWeatherCard v-for="dayData in weatherData.daily" :key="dayData.dt" :data="dayData" />
+    </WeatherList>
 
     <div
       v-if="!route.query.preview"
