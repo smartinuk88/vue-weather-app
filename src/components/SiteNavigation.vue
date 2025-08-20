@@ -36,7 +36,7 @@ const addPlace = () => {
 <template>
   <div>
     <header class="sticky top-0">
-      <nav class="flex items-center justify-between p-4 sm:px-10">
+      <nav class="flex items-center justify-between px-6 py-4 sm:px-10">
         <RouterLink :to="{ name: 'home' }">
           <div class="flex items-center gap-2">
             <i class="fa-solid fa-cloud text-2xl text-textSecondary"></i>

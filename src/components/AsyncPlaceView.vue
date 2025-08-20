@@ -46,34 +46,41 @@ console.log(weatherData)
 </script>
 
 <template>
-  <div class="flex-1 p-4 text-center">
+  <div class="flex-1 flex flex-col items-center p-6 text-center mx-auto max-w-4xl">
     <!-- Banner -->
     <div v-if="route.query.preview" class="p-4 w-full text-sm text-center bg-weatherSecondary">
       <p>You are currently previewing this location. Click the "+" to add to your locations.</p>
     </div>
     <!-- Weather Overview -->
-    <div class="flex flex-col items-center py-12 mb-10 w-full">
+    <div
+      class="flex flex-col items-center bg-weatherCard border border-weatherCard-border p-8 mb-20 w-full rounded-lg"
+    >
       <h1 class="text-3xl mb-2">{{ route.params.place }}</h1>
       <p class="text-7xl">{{ Math.round(weatherData.current.temp) }}&deg;</p>
       <p class="text-textSecondary">{{ weatherData.current.weather[0].main }}</p>
-      <p>
-        H: {{ Math.round(weatherData.daily[0].temp.max) }}&deg; | L:
-        {{ Math.round(weatherData.daily[0].temp.min) }}&deg;
-      </p>
-      <p class="text-sm mb-8">
-        {{
-          new Date(weatherData.currentTime).toLocaleDateString('en-gb', {
-            weekday: 'short',
-            day: '2-digit',
-            month: 'short',
-          })
-        }}
-        {{
-          new Date(weatherData.currentTime).toLocaleTimeString('en-gb', {
-            timeStyle: 'short',
-          })
-        }}
-      </p>
+      <div class="flex justify-center gap-2">
+        <span> H: {{ Math.round(weatherData.daily[0].temp.max) }}&deg;</span> <span>|</span>
+        <span>L: {{ Math.round(weatherData.daily[0].temp.min) }}&deg;</span>
+      </div>
+
+      <div class="flex justify-center gap-2">
+        <p class="text-sm">
+          {{
+            new Date(weatherData.currentTime).toLocaleDateString('en-gb', {
+              weekday: 'short',
+              day: '2-digit',
+              month: 'short',
+            })
+          }}
+        </p>
+        <p class="text-sm">
+          {{
+            new Date(weatherData.currentTime).toLocaleTimeString('en-gb', {
+              timeStyle: 'short',
+            })
+          }}
+        </p>
+      </div>
 
       <!-- Alerts -->
       <div
@@ -86,8 +93,8 @@ console.log(weatherData)
 
     <!-- Current Weather Data -->
 
-    <h2 class="mb-2">Current Weather</h2>
-    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 w-full">
+    <h2 class="mb-4 text-lg">Current Weather</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 w-full mb-20">
       <CurrentWeatherCard
         icon="fa-solid fa-sun"
         title="Feels Like"
@@ -139,7 +146,7 @@ console.log(weatherData)
 
     <!-- Weather Hourly & Weekly -->
 
-    <h2 class="mb-2">Hourly Weather</h2>
+    <h2 class="mb-2 text-lg">Hourly Weather</h2>
     <WeatherList>
       <HourlyWeatherCard
         v-for="hourData in weatherData.hourly"
@@ -148,7 +155,7 @@ console.log(weatherData)
       />
     </WeatherList>
 
-    <h2 class="mb-2">Daily Weather</h2>
+    <h2 class="mb-2 text-lg">Daily Weather</h2>
     <WeatherList>
       <DailyWeatherCard v-for="dayData in weatherData.daily" :key="dayData.dt" :data="dayData" />
     </WeatherList>
@@ -156,7 +163,7 @@ console.log(weatherData)
     <div
       v-if="!route.query.preview"
       @click="removePlace"
-      class="flex items-center gap-2 cursor-pointer p-4 hover:text-red-500 duration-300"
+      class="flex items-center gap-2 cursor-pointer p-4 hover:opacity-80 duration-300"
     >
       <i class="fa-solid fa-trash"></i>
       <p>Remove Location</p>
