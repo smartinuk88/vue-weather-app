@@ -46,7 +46,7 @@ const previewPlace = (searchResult) => {
 </script>
 
 <template>
-  <main class="p-4">
+  <main class="pt-0 pb-10 px-4 sm:px-10 w-full max-w-6xl mx-auto">
     <div>
       <div class="mb-12">
         <input
@@ -75,9 +75,9 @@ const previewPlace = (searchResult) => {
         </ul>
       </div>
 
-      <section class="">
+      <section>
         <h2 class="text-xl text-textPrimary mb-4">Your locations</h2>
-        <div class="flex flex-col gap-4">
+        <div>
           <Suspense>
             <PlaceList />
             <template #fallback>

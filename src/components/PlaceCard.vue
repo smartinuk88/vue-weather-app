@@ -18,7 +18,9 @@ defineProps({
           H: {{ Math.round(place.weather.main.temp_max) }}&deg; L:
           {{ Math.round(place.weather.main.temp_min) }}&deg;
         </p>
-        <h2 class="text-textPrimary">{{ place.place }}, {{ place.country }}</h2>
+        <h2 class="text-textPrimary">
+          {{ place.place }}<span class="hidden lg:inline">, {{ place.country }}</span>
+        </h2>
       </div>
       <div class="self-end">
         <p class="text-sm text-textPrimary">{{ place.weather.weather[0].description }}</p>

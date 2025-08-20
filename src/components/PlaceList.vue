@@ -49,7 +49,7 @@ const goToPlaceView = (place) => {
 
 <template>
   <div>
-    <div class="flex flex-col gap-4">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
       <div v-for="place in savedPlaces" :key="place.id">
         <PlaceCard :place="place" @click="goToPlaceView(place)" />
       </div>
