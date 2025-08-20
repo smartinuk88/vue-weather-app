@@ -1,6 +1,7 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router'
 import axios from 'axios'
+import WeatherList from './WeatherList.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -42,20 +43,26 @@ console.log(weatherData)
 </script>
 
 <template>
-  <div class="flex flex-1 flex-col items-center">
+  <div class="flex flex-1 flex-col items-center justify-center">
     <!-- Banner -->
     <div v-if="route.query.preview" class="p-4 w-full text-center">
-      <p>You are currently previewing this city. Click the "+" to add to your cities.</p>
+      <p>You are currently previewing this location. Click the "+" to add to your locations.</p>
     </div>
     <!-- Weather Overview -->
     <div class="flex flex-col items-center py-12">
-      <h1 class="text-4xl mb-2">{{ route.params.place }}</h1>
+      <h1 class="text-3xl mb-2">{{ route.params.place }}</h1>
+      <p class="text-7xl">{{ Math.round(weatherData.current.temp) }}&deg;</p>
+      <p class="text-textSecondary">{{ weatherData.current.weather[0].main }}</p>
       <p>
+        H: {{ Math.round(weatherData.daily[0].temp.max) }}&deg; | L:
+        {{ Math.round(weatherData.daily[0].temp.min) }}&deg;
+      </p>
+      <p class="text-sm">
         {{
           new Date(weatherData.currentTime).toLocaleDateString('en-gb', {
             weekday: 'short',
             day: '2-digit',
-            month: 'long',
+            month: 'short',
           })
         }}
         {{
@@ -64,6 +71,31 @@ console.log(weatherData)
           })
         }}
       </p>
+    </div>
+
+    <!-- Weather Hourly & Weekly -->
+
+    <div class="max-w-screen-md w-full py-12">
+      <div class="mx-8">
+        <h2 class="mb-4">Hourly Weather</h2>
+        <div class="flex gap-2 overflow-x-scroll">
+          <div
+            v-for="hourData in weatherData.hourly"
+            :key="hourData.dt"
+            class="flex flex-col px-2 py-4 items-center justify-between border border-weatherCard-border rounded-t-full h-[146px] rounded-b-full bg-weatherCard shadow-xl"
+          >
+            <p class="whitespace-nowrap text-md">
+              {{ new Date(hourData.currentTime).toLocaleTimeString('en-us', { hour: 'numeric' }) }}
+            </p>
+            <img
+              class="w-[32px] h-auto"
+              :src="`https://openweathermap.org/img/wn/${hourData.weather[0].icon}@2x.png`"
+              alt="weather icon"
+            />
+            <p class="text-xl">{{ Math.round(hourData.temp) }}&deg;</p>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div

@@ -3,18 +3,18 @@
 @theme {
   --font-display: 'Red Hat Display', 'sans-serif';
 
-  --color-pagePrimary: #45278b;
-  --color-pageSecondary: #2e335a;
+  --color-pagePrimary: #45278b; /* Change to bgPrimary */
+  --color-pageSecondary: #2e335a; /* Change to bgSecondary */
   --color-searchPrimary: #2e335a;
   --color-searchSecondary: #1c1b33;
   --color-textPrimary: #fff;
   --color-textSecondary: rgba(235, 235, 245, 0.6);
   --color-textTertiary: rgba(235, 235, 245, 0.3);
-  --color-textQuaternary: rgba(235, 235, 245, 0.18);
-  --color-weatherPrimary: #48319d;
-  --color-weatherSecondary: #1f1d47;
-  --color-weatherTertiary: #c427fb;
-  --color-weatherQuaternary: #e0d9ff;
+  --color-textQuaternary: rgba(235, 235, 245, 0.18); /* Change name as not used for text */
+  --color-weatherSecondary: #1f1d47; /* Change name based on use */
+  --color-weatherQuaternary: #e0d9ff; /* Change name based on use */
   --color-cardPrimary: #5936b4;
   --color-cardSecondary: #362a84;
+  --color-weatherCard: rgba(72, 49, 157, 0.2);
+  --color-weatherCard-border: rgba(255, 255, 255, 0.2);
 }

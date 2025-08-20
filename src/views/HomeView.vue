@@ -76,7 +76,7 @@ const previewPlace = (searchResult) => {
       </div>
 
       <section>
-        <h2 class="text-xl text-textPrimary mb-4">Your locations</h2>
+        <h2 class="text-xl mb-4">Your locations</h2>
         <div>
           <Suspense>
             <PlaceList />
