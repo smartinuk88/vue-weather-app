@@ -1,5 +1,7 @@
 <template>
-  <div class="flex flex-col min-h-screen">
+  <div
+    class="flex flex-col min-h-screen bg-radial from-pagePrimary to-pageSecondary text-textPrimary font-display p4 sm:px-10"
+  >
     <SiteNavigation />
     <RouterView />
   </div>

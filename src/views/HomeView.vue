@@ -46,39 +46,46 @@ const previewPlace = (searchResult) => {
 </script>
 
 <template>
-  <main class="p-2">
-    <div class="p-4">
-      <input
-        type="text"
-        v-model="searchQuery"
-        @input="getSearchResults"
-        placeholder="Search for a location"
-        class="py-2 px-1 w-full bg-transparent border focus:outline-none focus:shadow-md"
-      />
-      <ul v-if="mapboxSearchResults" class="w-full p-4">
-        <p v-if="searchError">Sorry, an error occurred. Please try again</p>
-        <p v-if="!searchError && mapboxSearchResults.length === 0">
-          No results match your query. Use a different search term
-        </p>
-        <template v-else>
-          <li
-            v-for="searchResult in mapboxSearchResults"
-            @click="previewPlace(searchResult)"
-            :key="searchResult.id"
-            class="py-2 cursor-pointer"
-          >
-            {{ searchResult.properties.full_address }}
-          </li>
-        </template>
-      </ul>
-      <div class="flex flex-col gap-4">
-        <Suspense>
-          <PlaceList />
-          <template #fallback>
-            <p>Loading...</p>
+  <main class="pt-0 pb-10 px-4 sm:px-10 w-full max-w-6xl mx-auto">
+    <div>
+      <div class="mb-12">
+        <input
+          type="text"
+          v-model="searchQuery"
+          @input="getSearchResults"
+          placeholder="Search for a location"
+          class="px-4 py-1 w-full bg-weatherSecondary text-textSecondary border border-weatherSecondary inset-shadow-sm rounded-md focus:outline-none focus:border-weatherQuaternary mb-4"
+        />
+
+        <ul v-if="mapboxSearchResults" class="w-full flex flex-col gap-2">
+          <p v-if="searchError">Sorry, an error occurred. Please try again</p>
+          <p v-if="!searchError && mapboxSearchResults.length === 0">
+            No results match your query. Use a different search term
+          </p>
+          <template v-else>
+            <li
+              v-for="searchResult in mapboxSearchResults"
+              @click="previewPlace(searchResult)"
+              :key="searchResult.id"
+              class="px-4 py-2 cursor-pointer bg-textQuaternary opacity-95 text-sm text-textSecondary rounded-md hover:opacity-80 duration-300"
+            >
+              {{ searchResult.properties.full_address }}
+            </li>
           </template>
-        </Suspense>
+        </ul>
       </div>
+
+      <section>
+        <h2 class="text-xl mb-4">Your locations</h2>
+        <div>
+          <Suspense>
+            <PlaceList />
+            <template #fallback>
+              <p>Loading...</p>
+            </template>
+          </Suspense>
+        </div>
+      </section>
     </div>
   </main>
 </template>

@@ -48,11 +48,15 @@ const goToPlaceView = (place) => {
 </script>
 
 <template>
-  <div v-for="place in savedPlaces" :key="place.id">
-    <PlaceCard :place="place" @click="goToPlaceView(place)" />
-  </div>
+  <div>
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+      <div v-for="place in savedPlaces" :key="place.id">
+        <PlaceCard :place="place" @click="goToPlaceView(place)" />
+      </div>
+    </div>
 
-  <p v-if="savedPlaces.length === 0">
-    No locations added. Use search bar above to get started adding locations
-  </p>
+    <p class="text-textSecondary text-sm" v-if="savedPlaces.length === 0">
+      No locations added. Use search bar above to get started adding locations
+    </p>
+  </div>
 </template>
