@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { ref, Suspense } from 'vue'
 import PlaceList from '@/components/PlaceList.vue'
+import { searchPlaces } from '@/services/mapboxService'
 
 const router = useRouter()
 const searchQuery = ref('')
@@ -12,19 +13,17 @@ const searchError = ref(null)
 
 const getSearchResults = () => {
   clearTimeout(queryTimeout.value)
+
   queryTimeout.value = setTimeout(async () => {
     if (searchQuery.value !== '') {
       try {
-        const result = await axios.get(
-          `https://api.mapbox.com/search/geocode/v6/forward?q=${searchQuery.value}&types=place&access_token=${import.meta.env.VITE_MAPBOX_API_KEY}`,
-        )
-        mapboxSearchResults.value = result.data.features
+        mapboxSearchResults.value = await searchPlaces(searchQuery.value)
       } catch {
         searchError.value = true
       }
-      return
+    } else {
+      mapboxSearchResults.value = null
     }
-    mapboxSearchResults.value = null
   }, 300)
 }
 

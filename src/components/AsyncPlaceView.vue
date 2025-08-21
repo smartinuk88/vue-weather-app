@@ -1,13 +1,12 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router'
-// import axios from 'axios'
 import WeatherList from './WeatherList.vue'
 import HourlyWeatherCard from './HourlyWeatherCard.vue'
 import DailyWeatherCard from './DailyWeatherCard.vue'
 import CurrentWeatherCard from './CurrentWeatherCard.vue'
 import WeatherOverview from './WeatherOverview.vue'
 import { onMounted, ref } from 'vue'
-import { getWeatherData } from '@/services/weatherService'
+import { getWeatherData } from '@/services/openweatherService'
 
 const router = useRouter()
 const route = useRoute()
