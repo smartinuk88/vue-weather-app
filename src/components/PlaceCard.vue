@@ -10,7 +10,7 @@ defineProps({
 <template>
   <div v-if="place.weather" class="relative">
     <div
-      class="flex items-center justify-between pt-10 pb-4 px-6 rounded-4xl cursor-pointer bg-gradient-to-r from-cardPrimary to-cardSecondary [clip-path:polygon(0_0,100%_50%,100%_100%,0%_100%)]"
+      class="flex items-center justify-between pt-10 pb-4 px-6 rounded-4xl cursor-pointer bg-gradient-to-r from-cardPrimary to-cardSecondary [clip-path:polygon(0_0,100%_50%,100%_100%,0%_100%)] hover:animate-pulse"
     >
       <div class="flex flex-col flex-1">
         <p class="text-6xl">{{ Math.round(place.weather.main.temp) }}&deg;</p>
