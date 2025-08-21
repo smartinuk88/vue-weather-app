@@ -32,11 +32,9 @@ export const getCurrentWeather = async (lat, lon) => {
       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${import.meta.env.VITE_OPENWEATHER_API_KEY}`,
     )
 
-    const currentWeather = response.data
-
-    return currentWeather
+    return { data: response.data, error: null }
   } catch (err) {
     console.error('Failed to fetch current weather data: ', err)
-    throw err
+    return { data: null, error: err }
   }
 }

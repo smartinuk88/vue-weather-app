@@ -17,11 +17,15 @@ const getPlaces = async () => {
     requests.push(getCurrentWeather(place.coordinates.lat, place.coordinates.lon))
   })
 
-  const weatherData = await Promise.all(requests)
+  const results = await Promise.all(requests)
 
-  // Match up weather data to correct place
-  weatherData.forEach((value, i) => {
-    savedPlaces.value[i].weather = value
+  results.forEach((result, i) => {
+    if (result.error) {
+      console.warn(`Weather fetch failed for ${savedPlaces.value[i].name}`, result.error)
+      savedPlaces.value[i].weatherError = 'Unable to fetch weather data'
+    } else {
+      savedPlaces.value[i].weather = result.data
+    }
   })
 }
 
