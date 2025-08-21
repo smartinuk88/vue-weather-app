@@ -43,7 +43,6 @@ const removePlace = () => {
 }
 
 const weatherData = await getWeatherData()
-console.log(weatherData)
 </script>
 
 <template>
