@@ -1,13 +1,17 @@
 <script setup>
-import AsyncCityView from '../components/AsyncPlaceView.vue'
+import SkeletonPlaceView from '@/components/SkeletonPlaceView.vue'
+// import AsyncPlaceView from '../components/AsyncPlaceView.vue'
+import { defineAsyncComponent } from 'vue'
+
+const AsyncPlaceView = defineAsyncComponent(() => new Promise(() => {}))
 </script>
 
 <template>
   <div>
     <Suspense>
-      <AsyncCityView />
+      <AsyncPlaceView />
       <template #fallback>
-        <p>Loading...</p>
+        <SkeletonPlaceView />
       </template>
     </Suspense>
   </div>
