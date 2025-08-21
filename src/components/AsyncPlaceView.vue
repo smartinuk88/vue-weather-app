@@ -49,7 +49,7 @@ console.log(weatherData)
 <template>
   <div class="flex-1 flex flex-col items-center p-6 text-center mx-auto max-w-4xl">
     <!-- Banner -->
-    <div v-if="route.query.preview" class="p-4 w-full text-sm text-center bg-weatherSecondary">
+    <div v-if="route.query.preview" class="p-4 mb-4 w-full text-sm text-center bg-weatherSecondary">
       <p>You are currently previewing this location. Click the "+" to add to your locations.</p>
     </div>
 
