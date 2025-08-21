@@ -1,36 +1,26 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router'
-import axios from 'axios'
+// import axios from 'axios'
 import WeatherList from './WeatherList.vue'
 import HourlyWeatherCard from './HourlyWeatherCard.vue'
 import DailyWeatherCard from './DailyWeatherCard.vue'
 import CurrentWeatherCard from './CurrentWeatherCard.vue'
 import WeatherOverview from './WeatherOverview.vue'
+import { onMounted, ref } from 'vue'
+import { getWeatherData } from '@/services/weatherService'
 
 const router = useRouter()
 const route = useRoute()
-const getWeatherData = async () => {
+const weatherData = ref(null)
+const error = ref(null)
+
+onMounted(async () => {
   try {
-    const weatherData = await axios.get(
-      `https://api.openweathermap.org/data/3.0/onecall?lat=${route.query.lat}&lon=${route.query.lon}&exclude={part}&units=metric&appid=${import.meta.env.VITE_OPENWEATHER_API_KEY}`,
-    )
-
-    // Calc current date and time
-    const localOffset = new Date().getTimezoneOffset() * 60000
-    const utc = weatherData.data.current.dt * 1000 + localOffset
-    weatherData.data.currentTime = utc + 1000 * weatherData.data.timezone_offset
-
-    // Calc hourly weather offset
-    weatherData.data.hourly.forEach((hour) => {
-      const utc = hour.dt * 1000 + localOffset
-      hour.currentTime = utc + 1000 * weatherData.data.timezone_offset
-    })
-
-    return weatherData.data
+    weatherData.value = await getWeatherData(route.query.lat, route.query.lon)
   } catch (err) {
-    console.log(err)
+    error.value = 'Could not load weather data.'
   }
-}
+})
 
 const removePlace = () => {
   const places = JSON.parse(localStorage.getItem('savedPlaces'))
@@ -41,12 +31,13 @@ const removePlace = () => {
     name: 'home',
   })
 }
-
-const weatherData = await getWeatherData()
 </script>
 
 <template>
-  <div class="flex-1 flex flex-col items-center p-6 text-center mx-auto max-w-4xl">
+  <div
+    v-if="weatherData"
+    class="flex-1 flex flex-col items-center p-6 text-center mx-auto max-w-4xl"
+  >
     <!-- Banner -->
     <div v-if="route.query.preview" class="p-4 mb-4 w-full text-sm text-center bg-weatherSecondary">
       <p>You are currently previewing this location. Click the "+" to add to your locations.</p>
