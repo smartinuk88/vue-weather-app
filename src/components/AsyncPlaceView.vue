@@ -53,9 +53,9 @@ console.log(weatherData)
     </div>
     <!-- Weather Overview -->
     <div
-      class="flex flex-col items-center bg-weatherCard border border-weatherCard-border p-8 mb-20 w-full rounded-lg"
+      class="flex flex-col items-center gap-2 bg-weatherCard border border-weatherCard-border p-8 mb-20 w-full rounded-lg"
     >
-      <h1 class="text-3xl mb-2">{{ route.params.place }}</h1>
+      <h1 class="text-3xl mb-2 font-bold">{{ route.params.place }}</h1>
       <p class="text-7xl">{{ Math.round(weatherData.current.temp) }}&deg;</p>
       <p class="text-textSecondary">{{ weatherData.current.weather[0].main }}</p>
       <div class="flex justify-center gap-2">
@@ -81,14 +81,30 @@ console.log(weatherData)
           }}
         </p>
       </div>
+    </div>
 
-      <!-- Alerts -->
-      <div
-        v-if="weatherData.alerts && weatherData.alerts.length > 0"
-        class="w-full p-4 text-sm text-center rounded-lg shadow-lg bg-weatherSecondary"
-      >
-        <p>{{ weatherData.alerts[0].description }}</p>
-      </div>
+    <!-- Alerts -->
+    <div
+      v-if="weatherData.alerts && weatherData.alerts.length > 0"
+      class="w-full p-4 text-sm rounded-lg shadow-lg mb-10 bg-weatherSecondary"
+    >
+      <h2 class="mb-2 text-lg">Alerts</h2>
+      <ul class="flex flex-col gap-2 text-start">
+        <li v-for="(alert, i) in weatherData.alerts" :key="i">
+          {{
+            new Date(alert.start).toLocaleTimeString('en-gb', {
+              timeStyle: 'short',
+            })
+          }}
+          -
+          {{
+            new Date(alert.end).toLocaleTimeString('en-gb', {
+              timeStyle: 'short',
+            })
+          }}: <span class="uppercase font-semibold">{{ alert.event }}</span> -
+          {{ alert.description }}
+        </li>
+      </ul>
     </div>
 
     <!-- Current Weather Data -->
@@ -146,7 +162,7 @@ console.log(weatherData)
 
     <!-- Weather Hourly & Weekly -->
 
-    <h2 class="mb-2 text-lg">Hourly Weather</h2>
+    <h2 class="mb-2 text-lg">Hourly Forecast</h2>
     <WeatherList>
       <HourlyWeatherCard
         v-for="hourData in weatherData.hourly"
@@ -155,7 +171,7 @@ console.log(weatherData)
       />
     </WeatherList>
 
-    <h2 class="mb-2 text-lg">Daily Weather</h2>
+    <h2 class="mb-2 text-lg">7-Day Forecast</h2>
     <WeatherList>
       <DailyWeatherCard v-for="dayData in weatherData.daily" :key="dayData.dt" :data="dayData" />
     </WeatherList>
