@@ -7,9 +7,9 @@ defineProps({
 
 <template>
   <div
-    class="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-12 md:gap-20 bg-weatherCard border border-weatherCard-border p-8 mb-20 min-h-72 w-full rounded-lg"
+    class="grid grid-cols-1 sm:grid-cols-3 justify-center items-center gap-4 sm:gap-12 md:gap-20 bg-weatherCard border border-weatherCard-border p-8 mb-20 min-h-72 w-full rounded-lg"
   >
-    <div class="flex flex-col items-center gap-2">
+    <div class="flex flex-col sm:col-span-2 items-center gap-2">
       <h1 class="text-4xl sm:text-5xl md:text-7xl mb-2 font-bold">{{ route.params.place }}</h1>
       <p class="text-7xl">{{ Math.round(weatherData.current.temp) }}&deg;</p>
     </div>
