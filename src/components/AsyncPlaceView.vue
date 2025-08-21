@@ -10,14 +10,15 @@ import { getWeatherData } from '@/services/openweatherService'
 
 const router = useRouter()
 const route = useRoute()
-const weatherData = ref(null)
-const error = ref(null)
+const weatherData = ref({ data: null, error: null })
 
 onMounted(async () => {
-  try {
-    weatherData.value = await getWeatherData(route.query.lat, route.query.lon)
-  } catch (err) {
-    error.value = 'Could not load weather data.'
+  const { data, error } = await getWeatherData(route.query.lat, route.query.lon)
+  if (error) {
+    console.error(error)
+    weatherData.value = { data: null, error: 'Could not load weather data.' }
+  } else {
+    weatherData.value = { data, error: null }
   }
 })
 
@@ -34,7 +35,7 @@ const removePlace = () => {
 
 <template>
   <div
-    v-if="weatherData"
+    v-if="weatherData.data"
     class="flex-1 flex flex-col items-center p-6 text-center mx-auto max-w-4xl"
   >
     <!-- Banner -->
@@ -43,16 +44,16 @@ const removePlace = () => {
     </div>
 
     <!-- Weather Overview -->
-    <WeatherOverview :route="route" :weatherData="weatherData" />
+    <WeatherOverview :route="route" :weatherData="weatherData.data" />
 
     <!-- Alerts -->
     <div
-      v-if="weatherData.alerts && weatherData.alerts.length > 0"
+      v-if="weatherData.data.alerts && weatherData.data.alerts.length > 0"
       class="w-full p-4 text-sm rounded-lg shadow-lg mb-10 bg-weatherSecondary"
     >
       <h2 class="mb-2 text-lg">Alerts</h2>
       <ul class="flex flex-col gap-2 text-start">
-        <li v-for="(alert, i) in weatherData.alerts" :key="i">
+        <li v-for="(alert, i) in weatherData.data.alerts" :key="i">
           {{
             new Date(alert.start).toLocaleTimeString('en-gb', {
               timeStyle: 'short',
@@ -76,14 +77,14 @@ const removePlace = () => {
       <CurrentWeatherCard
         icon="fa-solid fa-sun"
         title="Feels Like"
-        :value="Math.round(weatherData.current.feels_like)"
+        :value="Math.round(weatherData.data.current.feels_like)"
         unit="&deg;"
       />
       <CurrentWeatherCard
         icon="fa-solid fa-sun"
         title="Sunrise"
         :value="
-          new Date(weatherData.current.sunrise).toLocaleTimeString('en-gb', {
+          new Date(weatherData.data.current.sunrise).toLocaleTimeString('en-gb', {
             timeStyle: 'short',
           })
         "
@@ -92,7 +93,7 @@ const removePlace = () => {
         icon="fa-solid fa-moon"
         title="Sunset"
         :value="
-          new Date(weatherData.current.sunset).toLocaleTimeString('en-gb', {
+          new Date(weatherData.data.current.sunset).toLocaleTimeString('en-gb', {
             timeStyle: 'short',
           })
         "
@@ -100,24 +101,24 @@ const removePlace = () => {
       <CurrentWeatherCard
         icon="fa-solid fa-sun"
         title="UV Index"
-        :value="weatherData.current.uvi"
+        :value="weatherData.data.current.uvi"
       />
       <CurrentWeatherCard
         icon="fa-solid fa-wind"
         title="Wind Speed"
-        :value="weatherData.current.wind_speed"
+        :value="weatherData.data.current.wind_speed"
         unit="kph"
       />
       <CurrentWeatherCard
         icon="fa-solid fa-wind"
         title="Wind Direction"
-        :value="weatherData.current.wind_deg"
+        :value="weatherData.data.current.wind_deg"
         unit="&deg;"
       />
       <CurrentWeatherCard
         icon="fa-solid fa-droplet"
         title="Humidity"
-        :value="weatherData.current.humidity"
+        :value="weatherData.data.current.humidity"
         unit="%"
       />
     </div>
@@ -127,7 +128,7 @@ const removePlace = () => {
     <h2 class="mb-2 text-lg">Hourly Forecast</h2>
     <WeatherList>
       <HourlyWeatherCard
-        v-for="hourData in weatherData.hourly"
+        v-for="hourData in weatherData.data.hourly"
         :key="hourData.dt"
         :data="hourData"
       />
@@ -135,7 +136,11 @@ const removePlace = () => {
 
     <h2 class="mb-2 text-lg">7-Day Forecast</h2>
     <WeatherList>
-      <DailyWeatherCard v-for="dayData in weatherData.daily" :key="dayData.dt" :data="dayData" />
+      <DailyWeatherCard
+        v-for="dayData in weatherData.data.daily"
+        :key="dayData.dt"
+        :data="dayData"
+      />
     </WeatherList>
 
     <div
@@ -146,5 +151,12 @@ const removePlace = () => {
       <i class="fa-solid fa-trash"></i>
       <p>Remove Location</p>
     </div>
+  </div>
+
+  <div
+    v-else-if="weatherData.error"
+    class="flex-1 flex items-center justify-center p-6 text-center"
+  >
+    Failed to load weather data. Please try again later.
   </div>
 </template>

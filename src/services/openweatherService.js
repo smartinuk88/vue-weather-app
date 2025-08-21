@@ -19,10 +19,10 @@ export const getWeatherData = async (lat, lon) => {
       hour.currentTime = utc + 1000 * weatherData.timezone_offset
     })
 
-    return weatherData
+    return { data: weatherData, error: null }
   } catch (err) {
     console.error('Failed to fetch weather data: ', err)
-    throw err
+    return { data: null, error: err }
   }
 }
 
