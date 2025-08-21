@@ -1,5 +1,4 @@
 <script setup>
-import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { ref, Suspense } from 'vue'
 import PlaceList from '@/components/PlaceList.vue'
