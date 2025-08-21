@@ -1,13 +1,14 @@
 <script setup>
-import AsyncCityView from '../components/AsyncPlaceView.vue'
+import SkeletonPlaceView from '@/components/SkeletonPlaceView.vue'
+import AsyncPlaceView from '../components/AsyncPlaceView.vue'
 </script>
 
 <template>
   <div>
     <Suspense>
-      <AsyncCityView />
+      <AsyncPlaceView />
       <template #fallback>
-        <p>Loading...</p>
+        <SkeletonPlaceView />
       </template>
     </Suspense>
   </div>
