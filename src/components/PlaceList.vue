@@ -1,8 +1,9 @@
 <script setup>
-import axios from 'axios'
+// import axios from 'axios'
 import { ref } from 'vue'
 import PlaceCard from './PlaceCard.vue'
 import { useRouter } from 'vue-router'
+import { getCurrentWeather } from '@/services/openweatherService'
 
 const router = useRouter()
 const savedPlaces = ref([])
@@ -13,18 +14,18 @@ const getPlaces = async () => {
 
   const requests = []
   savedPlaces.value.forEach((place) => {
-    requests.push(
-      axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${place.coordinates.lat}&lon=${place.coordinates.lon}&units=metric&appid=${import.meta.env.VITE_OPENWEATHER_API_KEY}`,
-      ),
-    )
+    requests.push(getCurrentWeather(place.coordinates.lat, place.coordinates.lon))
   })
 
-  const weatherData = await Promise.all(requests)
+  const results = await Promise.all(requests)
 
-  // Match up weather data to correct place
-  weatherData.forEach((value, i) => {
-    savedPlaces.value[i].weather = value.data
+  results.forEach((result, i) => {
+    if (result.error) {
+      console.warn(`Weather fetch failed for ${savedPlaces.value[i].name}`, result.error)
+      savedPlaces.value[i].weatherError = 'Unable to fetch weather data'
+    } else {
+      savedPlaces.value[i].weather = result.data
+    }
   })
 }
 
