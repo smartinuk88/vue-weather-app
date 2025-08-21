@@ -3,6 +3,7 @@ import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 import PlaceList from '@/components/PlaceList.vue'
 import { searchPlaces } from '@/services/mapboxService'
+import SkeletonPlaceList from '@/components/SkeletonPlaceList.vue'
 
 const router = useRouter()
 const searchQuery = ref('')
@@ -79,7 +80,7 @@ const previewPlace = (searchResult) => {
           <Suspense>
             <PlaceList />
             <template #fallback>
-              <p>Loading...</p>
+              <SkeletonPlaceList />
             </template>
           </Suspense>
         </div>
