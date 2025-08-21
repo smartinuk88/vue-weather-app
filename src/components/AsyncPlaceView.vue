@@ -5,6 +5,7 @@ import WeatherList from './WeatherList.vue'
 import HourlyWeatherCard from './HourlyWeatherCard.vue'
 import DailyWeatherCard from './DailyWeatherCard.vue'
 import CurrentWeatherCard from './CurrentWeatherCard.vue'
+import WeatherOverview from './WeatherOverview.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -51,37 +52,9 @@ console.log(weatherData)
     <div v-if="route.query.preview" class="p-4 w-full text-sm text-center bg-weatherSecondary">
       <p>You are currently previewing this location. Click the "+" to add to your locations.</p>
     </div>
-    <!-- Weather Overview -->
-    <div
-      class="flex flex-col items-center gap-2 bg-weatherCard border border-weatherCard-border p-8 mb-20 w-full rounded-lg"
-    >
-      <h1 class="text-3xl mb-2 font-bold">{{ route.params.place }}</h1>
-      <p class="text-7xl">{{ Math.round(weatherData.current.temp) }}&deg;</p>
-      <p class="text-textSecondary">{{ weatherData.current.weather[0].main }}</p>
-      <div class="flex justify-center gap-2">
-        <span> H: {{ Math.round(weatherData.daily[0].temp.max) }}&deg;</span> <span>|</span>
-        <span>L: {{ Math.round(weatherData.daily[0].temp.min) }}&deg;</span>
-      </div>
 
-      <div class="flex justify-center gap-2">
-        <p class="text-sm">
-          {{
-            new Date(weatherData.currentTime).toLocaleDateString('en-gb', {
-              weekday: 'short',
-              day: '2-digit',
-              month: 'short',
-            })
-          }}
-        </p>
-        <p class="text-sm">
-          {{
-            new Date(weatherData.currentTime).toLocaleTimeString('en-gb', {
-              timeStyle: 'short',
-            })
-          }}
-        </p>
-      </div>
-    </div>
+    <!-- Weather Overview -->
+    <WeatherOverview :route="route" :weatherData="weatherData" />
 
     <!-- Alerts -->
     <div
