@@ -42,7 +42,7 @@ const goToPlaceView = (place) => {
     query: {
       id: place.id,
       lat: place.coordinates.lat,
-      lon: place.coordinates.lat,
+      lon: place.coordinates.lon,
     },
   })
 }

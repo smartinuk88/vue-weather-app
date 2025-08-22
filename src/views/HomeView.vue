@@ -28,6 +28,7 @@ const getSearchResults = () => {
 }
 
 const previewPlace = (searchResult) => {
+  console.log(searchResult)
   router.push({
     name: 'placeView',
     params: {
