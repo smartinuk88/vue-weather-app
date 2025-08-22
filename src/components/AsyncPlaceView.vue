@@ -19,6 +19,7 @@ onMounted(async () => {
     weatherData.value = { data: null, error: 'Could not load weather data.' }
   } else {
     weatherData.value = { data, error: null }
+    console.log(weatherData)
   }
 })
 
@@ -55,14 +56,16 @@ const removePlace = () => {
       <ul class="flex flex-col gap-2 text-start">
         <li v-for="(alert, i) in weatherData.data.alerts" :key="i">
           {{
-            new Date(alert.start).toLocaleTimeString('en-gb', {
+            new Date(alert.start * 1000).toLocaleTimeString('en-gb', {
               timeStyle: 'short',
+              timeZone: weatherData.data.timezone,
             })
           }}
           -
           {{
-            new Date(alert.end).toLocaleTimeString('en-gb', {
+            new Date(alert.end * 1000).toLocaleTimeString('en-gb', {
               timeStyle: 'short',
+              timeZone: weatherData.data.timezone,
             })
           }}: <span class="uppercase font-semibold">{{ alert.event }}</span> -
           {{ alert.description }}
@@ -84,8 +87,9 @@ const removePlace = () => {
         icon="fa-solid fa-sun"
         title="Sunrise"
         :value="
-          new Date(weatherData.data.current.sunrise).toLocaleTimeString('en-gb', {
+          new Date(weatherData.data.current.sunrise * 1000).toLocaleTimeString('en-gb', {
             timeStyle: 'short',
+            timeZone: weatherData.data.timezone,
           })
         "
       />
@@ -93,8 +97,9 @@ const removePlace = () => {
         icon="fa-solid fa-moon"
         title="Sunset"
         :value="
-          new Date(weatherData.data.current.sunset).toLocaleTimeString('en-gb', {
+          new Date(weatherData.data.current.sunset * 1000).toLocaleTimeString('en-gb', {
             timeStyle: 'short',
+            timeZone: weatherData.data.timezone,
           })
         "
       />

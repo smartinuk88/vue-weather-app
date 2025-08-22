@@ -1,4 +1,6 @@
 <script setup>
+import { toLocalTime } from '@/utils/time'
+
 defineProps({
   route: Object,
   weatherData: Object,
@@ -28,18 +30,23 @@ defineProps({
       <div class="flex justify-center gap-2">
         <p class="text-sm">
           {{
-            new Date(weatherData.currentTime).toLocaleDateString('en-gb', {
+            new Date(weatherData.current.dt * 1000).toLocaleDateString('en-gb', {
               weekday: 'short',
               day: '2-digit',
               month: 'short',
+              timeZone: weatherData.timezone,
             })
           }}
         </p>
         <p class="text-sm">
           {{
-            new Date(weatherData.currentTime).toLocaleTimeString('en-gb', {
-              timeStyle: 'short',
-            })
+            toLocalTime(weatherData.current.dt, weatherData.timezone_offset).toLocaleTimeString(
+              'en-gb',
+              {
+                timeStyle: 'short',
+                timeZone: 'UTC',
+              },
+            )
           }}
         </p>
       </div>

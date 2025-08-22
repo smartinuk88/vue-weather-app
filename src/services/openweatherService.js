@@ -8,17 +8,6 @@ export const getWeatherData = async (lat, lon) => {
 
     const weatherData = response.data
 
-    // Calc current date and time
-    const localOffset = new Date().getTimezoneOffset() * 60000
-    const utc = weatherData.current.dt * 1000 + localOffset
-    weatherData.currentTime = utc + 1000 * weatherData.timezone_offset
-
-    // Calc hourly weather offset
-    weatherData.hourly.forEach((hour) => {
-      const utc = hour.dt * 1000 + localOffset
-      hour.currentTime = utc + 1000 * weatherData.timezone_offset
-    })
-
     return { data: weatherData, error: null }
   } catch (err) {
     console.error('Failed to fetch weather data: ', err)
