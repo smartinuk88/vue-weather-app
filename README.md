@@ -15,6 +15,14 @@ Construida con **Vue 3**, **Vite**, **TailwindCSS** y APIs externas (Mapbox y Op
 ![](src/assets/images/screenshot1.png)
 ![](src/assets/images/screenshot2.png)
 ![](src/assets/images/screenshot3.png)
+![](./images/screenshot1.png)
+![](./images/screenshot2.png)
+![](./images/screenshot3.png)
+
+### Enlaces
+
+- Live Site: https://vue-weather-app-psi.vercel.app/
+- Github: https://github.com/smartinuk88/vue-weather-app
 
 ## Requisitos Previos
 
