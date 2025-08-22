@@ -3,6 +3,8 @@
 @theme {
   --font-display: 'Red Hat Display', 'sans-serif';
 
+  --breakpoint-xs: 25em;
+
   --color-pagePrimary: #45278b; /* Change to bgPrimary */
   --color-pageSecondary: #2e335a; /* Change to bgSecondary */
   --color-searchPrimary: #2e335a;
