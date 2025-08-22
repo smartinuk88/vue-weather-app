@@ -6,6 +6,7 @@ import { RouterLink, useRoute, useRouter } from 'vue-router'
 const router = useRouter()
 const route = useRoute()
 const savedPlaces = ref([])
+const notification = ref(null)
 const addPlace = () => {
   if (localStorage.getItem('savedPlaces')) {
     savedPlaces.value = JSON.parse(localStorage.getItem('savedPlaces'))
@@ -30,6 +31,11 @@ const addPlace = () => {
   delete query.preview
   query.id = locationObj.id
   router.replace({ query })
+
+  notification.value = 'Location added!'
+  setTimeout(() => {
+    notification.value = null
+  }, 3000)
 }
 </script>
 
@@ -49,6 +55,10 @@ const addPlace = () => {
           class="flex items-center justify-center cursor-pointer text-pagePrimary h-6 w-6 rounded-full bg-textPrimary shadow-lg hover:opacity-80 duration-300"
         >
           <i class="fa-solid fa-plus text-xs"></i>
+        </div>
+
+        <div v-if="notification" class="text-textSecondary">
+          {{ notification }}
         </div>
       </nav>
     </header>
