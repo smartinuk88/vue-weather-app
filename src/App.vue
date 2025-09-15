@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col min-h-screen bg-radial from-pagePrimary to-pageSecondary text-textPrimary font-display p4 sm:px-10"
+    class="flex flex-col min-h-screen bg-radial from-primary-gradient-start to-primary-gradient-end text-white font-display p4 sm:px-10"
   >
     <SiteNavigation />
     <RouterView />
