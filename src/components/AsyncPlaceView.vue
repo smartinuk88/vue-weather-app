@@ -132,6 +132,12 @@ const removePlace = () => {
         :value="weatherData.data.current.visibility / 1000"
         unit="km"
       />
+      <CurrentWeatherCard
+        icon="fa-solid fa-weight-hanging"
+        title="Pressure"
+        :value="weatherData.data.current.pressure"
+        unit="hPa"
+      />
     </div>
 
     <!-- Weather Hourly & Weekly -->
