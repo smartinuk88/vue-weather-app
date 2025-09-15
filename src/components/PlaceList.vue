@@ -56,7 +56,7 @@ const goToPlaceView = (place) => {
       </div>
     </div>
 
-    <p class="text-textSecondary text-sm" v-if="savedPlaces.length === 0">
+    <p class="text-text-secondary text-sm" v-if="savedPlaces.length === 0">
       No locations added. Use search bar above to get started adding locations
     </p>
   </div>

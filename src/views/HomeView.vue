@@ -54,7 +54,7 @@ const previewPlace = (searchResult) => {
           v-model="searchQuery"
           @input="getSearchResults"
           placeholder="Search for a location"
-          class="px-4 py-1 w-full bg-weatherSecondary text-textSecondary border border-weatherSecondary inset-shadow-sm rounded-md focus:outline-none focus:border-weatherQuaternary mb-4"
+          class="px-4 py-1 w-full bg-bg-input text-text-secondary border border-bg-input inset-shadow-sm rounded-md focus:outline-none focus:border-focus mb-4"
         />
 
         <ul v-if="mapboxSearchResults" class="w-full flex flex-col gap-2">
@@ -67,7 +67,7 @@ const previewPlace = (searchResult) => {
               v-for="searchResult in mapboxSearchResults"
               @click="previewPlace(searchResult)"
               :key="searchResult.id"
-              class="px-4 py-2 cursor-pointer bg-textQuaternary opacity-95 text-sm text-textSecondary rounded-md hover:opacity-80 duration-300"
+              class="px-4 py-2 cursor-pointer bg-textQuaternary opacity-95 text-sm text-text-secondary rounded-md hover:opacity-80 duration-300"
             >
               {{ searchResult.properties.full_address }}
             </li>
