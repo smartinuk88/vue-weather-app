@@ -6,7 +6,7 @@ defineProps({
 
 <template>
   <div
-    class="flex flex-col px-2 py-4 items-center justify-between bg-weatherCard border border-weatherCard-border rounded-t-full h-[146px] rounded-b-full shadow-xl"
+    class="flex flex-col px-2 py-4 items-center justify-between bg-bg-hourly-daily border border-border-hourly-daily rounded-t-full h-[146px] rounded-b-full shadow-xl"
   >
     <p class="whitespace-nowrap text-md">
       {{ new Date(data.dt * 1000).toLocaleTimeString('en-gb', { hour: 'numeric' }) }}

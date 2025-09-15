@@ -40,7 +40,7 @@ const removePlace = () => {
     class="flex-1 flex flex-col items-center p-6 text-center mx-auto max-w-4xl"
   >
     <!-- Banner -->
-    <div v-if="route.query.preview" class="p-4 mb-4 w-full text-sm text-center bg-weatherSecondary">
+    <div v-if="route.query.preview" class="p-4 mb-4 w-full text-sm text-center bg-bg-alert">
       <p>You are currently previewing this location. Click the "+" to add to your locations.</p>
     </div>
 
@@ -50,7 +50,7 @@ const removePlace = () => {
     <!-- Alerts -->
     <div
       v-if="weatherData.data.alerts && weatherData.data.alerts.length > 0"
-      class="w-full p-4 text-sm rounded-lg shadow-lg mb-10 bg-weatherSecondary"
+      class="w-full p-4 text-sm rounded-lg shadow-lg mb-10 bg-bg-alert"
     >
       <h2 class="mb-2 text-lg">Alerts</h2>
       <ul class="flex flex-col gap-2 text-start">
@@ -125,6 +125,18 @@ const removePlace = () => {
         title="Humidity"
         :value="weatherData.data.current.humidity"
         unit="%"
+      />
+      <CurrentWeatherCard
+        icon="fa-solid fa-eye"
+        title="Visibility"
+        :value="weatherData.data.current.visibility / 1000"
+        unit="km"
+      />
+      <CurrentWeatherCard
+        icon="fa-solid fa-weight-hanging"
+        title="Pressure"
+        :value="weatherData.data.current.pressure"
+        unit="hPa"
       />
     </div>
 

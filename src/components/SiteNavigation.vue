@@ -45,19 +45,19 @@ const addPlace = () => {
       <nav class="flex items-center justify-between px-6 py-4 sm:px-10">
         <RouterLink :to="{ name: 'home' }">
           <div class="flex items-center gap-2">
-            <i class="fa-solid fa-cloud text-2xl text-textSecondary"></i>
+            <i class="fa-solid fa-cloud text-2xl text-text-secondary"></i>
             <p class="text-2xl">Wevva</p>
           </div>
         </RouterLink>
         <div
           @click="addPlace"
           v-if="route.query.preview"
-          class="flex items-center justify-center cursor-pointer text-pagePrimary h-6 w-6 rounded-full bg-textPrimary shadow-lg hover:opacity-80 duration-300"
+          class="flex items-center justify-center cursor-pointer text-text-primary-inverse h-6 w-6 rounded-full bg-white shadow-lg hover:opacity-80 duration-300"
         >
           <i class="fa-solid fa-plus text-xs"></i>
         </div>
 
-        <div v-if="notification" class="text-textSecondary">
+        <div v-if="notification" class="text-text-secondary">
           {{ notification }}
         </div>
       </nav>

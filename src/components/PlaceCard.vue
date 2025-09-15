@@ -10,11 +10,11 @@ defineProps({
 <template>
   <div v-if="place.weather" class="relative">
     <div
-      class="flex items-center justify-between pt-10 pb-4 px-6 rounded-4xl cursor-pointer bg-gradient-to-r from-cardPrimary to-cardSecondary [clip-path:polygon(0_0,100%_50%,100%_100%,0%_100%)] hover:animate-pulse"
+      class="flex items-center justify-between pt-10 pb-4 px-6 rounded-4xl cursor-pointer bg-gradient-to-r from-card-gradient-start to-card-gradient-end [clip-path:polygon(0_0,100%_50%,100%_100%,0%_100%)] hover:animate-pulse"
     >
       <div class="flex flex-col flex-1">
         <p class="text-6xl">{{ Math.round(place.weather.main.temp) }}&deg;</p>
-        <p class="text-sm text-textTertiary">
+        <p class="text-sm text-text-secondary">
           H: {{ Math.round(place.weather.main.temp_max) }}&deg; L:
           {{ Math.round(place.weather.main.temp_min) }}&deg;
         </p>
@@ -36,10 +36,10 @@ defineProps({
 
   <div
     v-else-if="place.weatherError"
-    class="flex items-center h-[160px] justify-between p-4 rounded-4xl bg-gradient-to-r from-cardPrimary to-cardSecondary [clip-path:polygon(0_0,100%_50%,100%_100%,0%_100%)]"
+    class="flex items-center h-[160px] justify-between p-4 rounded-4xl bg-gradient-to-r from-card-gradient-start to-card-gradient-end [clip-path:polygon(0_0,100%_50%,100%_100%,0%_100%)]"
   >
     <div class="flex flex-col flex-1">
-      <p class="text-textPrimary">{{ place.weatherError }}</p>
+      <p class="text-white">{{ place.weatherError }}</p>
     </div>
   </div>
 </template>
