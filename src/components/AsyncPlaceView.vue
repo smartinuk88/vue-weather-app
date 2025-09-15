@@ -126,6 +126,12 @@ const removePlace = () => {
         :value="weatherData.data.current.humidity"
         unit="%"
       />
+      <CurrentWeatherCard
+        icon="fa-solid fa-eye"
+        title="Visibility"
+        :value="weatherData.data.current.visibility / 1000"
+        unit="km"
+      />
     </div>
 
     <!-- Weather Hourly & Weekly -->
