@@ -67,7 +67,7 @@ const previewPlace = (searchResult) => {
               v-for="searchResult in mapboxSearchResults"
               @click="previewPlace(searchResult)"
               :key="searchResult.id"
-              class="px-4 py-2 cursor-pointer bg-textQuaternary opacity-95 text-sm text-text-secondary rounded-md hover:opacity-80 duration-300"
+              class="px-4 py-2 cursor-pointer bg-bg-search-result opacity-95 text-sm text-text-secondary rounded-md hover:opacity-80 duration-300"
             >
               {{ searchResult.properties.full_address }}
             </li>
