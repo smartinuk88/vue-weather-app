@@ -10,7 +10,7 @@
   --color-primary-gradient-end: #2e335a;
   --color-white: #fff;
   --color-text-secondary: rgba(235, 235, 245, 0.6);
-  --color-textQuaternary: rgba(235, 235, 245, 0.18); /* Change name as not used for text */
+  --color-bg-search-result: rgba(235, 235, 245, 0.18); /* Change name as not used for text */
   --color-bg-alert: #1f1d47;
   --color-bg-input: #1f1d47;
   --color-focus: #e0d9ff;
